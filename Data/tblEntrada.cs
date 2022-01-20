@@ -10,5 +10,6 @@
         public string? Etiquetas { get; set; }
         public string? Thumbnail { get; set; }
         public string? URLEntrada { get; set; }
+        public string? URLContenido { get; set; }
     }
 }

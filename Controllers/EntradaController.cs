@@ -56,14 +56,14 @@ namespace ConvencionesWebApi.Controllers
                     return Ok(podcasts);
                 }
 
-                
+
             }
             catch (Exception)
             {
                 return StatusCode(500, "An error has ocurred");
             }
         }
-        
+
         [HttpGet("GetInfografias")]
         public IActionResult GetInfografias(string Convencion)
         {
@@ -140,6 +140,66 @@ namespace ConvencionesWebApi.Controllers
                     return StatusCode(404, "No podcast found");
                 }
                 return Ok(entradas);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error has ocurred");
+            }
+        }
+
+        [HttpGet("GetDescripcion")]
+        public IActionResult GetDescripcion(string Descripcion)
+        {
+            try
+            {
+                var entradas = _dbContext.tblEntrada.Where(b => b.Descripcion.Contains(Descripcion)).ToList();
+                if (entradas.Count == 0)
+                {
+                    return StatusCode(404, "No podcast found");
+                }
+                return Ok(entradas);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error has ocurred");
+            }
+        }
+
+        [HttpGet("GetTag")]
+        public IActionResult GetTag(string Tags)
+        {
+            try
+            {
+                string[] tags = Tags.Split(' ');
+                foreach (var tag in tags)
+                {
+                    Console.WriteLine(tag);
+                }
+                var entradas = _dbContext.tblEntrada.Where(b => b.Etiquetas.Contains(Tags)).ToList();
+                if (entradas.Count == 0)
+                {
+                    return StatusCode(404, "No podcast found");
+                }
+                Console.Write(entradas);
+                return Ok(entradas);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error has ocurred");
+            }
+        }
+
+        [HttpGet("GetEntrada")]
+        public IActionResult GetEntrada(string Ruta)
+        {
+            try
+            {
+                var entrada = _dbContext.tblEntrada.Where(b => b.URLEntrada.Contains(Ruta)).FirstOrDefault();
+                if (entrada == null)
+                {
+                    return StatusCode(404, "No entrada found");
+                }
+                return Ok(entrada);
             }
             catch (Exception)
             {
