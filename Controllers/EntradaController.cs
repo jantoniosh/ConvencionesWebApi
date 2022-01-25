@@ -175,10 +175,11 @@ namespace ConvencionesWebApi.Controllers
                 {
                     Console.WriteLine(tag);
                 }
-                var entradas = _dbContext.tblEntrada.Where(b => b.Etiquetas.Contains(Tags)).ToList();
+                var entradas = _dbContext.tblEntrada.Where(
+                    b => b.Etiquetas.Contains(Tags)).ToList();
                 if (entradas.Count == 0)
                 {
-                    return StatusCode(404, "No podcast found");
+                    return StatusCode(404, "No tags found");
                 }
                 Console.Write(entradas);
                 return Ok(entradas);
